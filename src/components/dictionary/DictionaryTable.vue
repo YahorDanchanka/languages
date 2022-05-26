@@ -47,10 +47,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useQuasar } from 'quasar'
-import { IDictionary, ILanguage } from 'src/types/IDictionary'
+import { IDictionary } from 'src/types/IDictionary'
 import { useDictionaryStore } from 'stores/dictionary'
+import { useLanguagesStore } from 'stores/languages'
 
 const $q = useQuasar()
+const languagesStore = useLanguagesStore()
 const dictionaryStore = useDictionaryStore()
 const props = defineProps<{ dictionary: IDictionary }>()
 
@@ -71,10 +73,11 @@ const columns = [
   },
   {
     name: 'language',
-    field: 'language',
+    field: 'languageCode',
     label: 'Язык',
     align: 'left',
-    format: (val: ILanguage) => val.label,
+    format: (languageCode: string) =>
+      languagesStore.findLanguageByCode(languageCode)?.label,
   },
 ]
 

@@ -7,7 +7,7 @@ export type IDictionary = IDictionaryItem[]
 
 export interface IDictionaryItem {
   id: string
-  language: ILanguage
+  languageCode: string
   topic: string
   word: string
   translations: string[]

@@ -72,7 +72,7 @@ const emit = defineEmits(['submit'])
 
 const word = ref(props.dictionaryItem?.word || '')
 const translations = ref(props.dictionaryItem?.translations.join(', ') || '')
-const language = ref(props.dictionaryItem?.language.code || '')
+const language = ref(props.dictionaryItem?.languageCode || '')
 const topic = ref(props.dictionaryItem?.topic || '')
 const availableLanguages = languagesStore.languages
 
@@ -103,7 +103,7 @@ function onSubmit() {
 
   const dictionaryItem: IDictionaryItem = {
     id: props.dictionaryItem?.id || uid(),
-    language: foundLanguage,
+    languageCode: foundLanguage.code,
     topic: topic.value,
     word: word.value,
     translations: translations.value
