@@ -36,10 +36,18 @@ export const useDictionaryStore = defineStore('dictionary', () => {
     dictionary.value.push(dictionaryItem)
   }
 
+  function removeDictionaryItem(dictionaryItemId: string) {
+    dictionary.value = dictionary.value.filter(
+      (dictionaryItem: IDictionaryItem) =>
+        dictionaryItem.id !== dictionaryItemId
+    )
+  }
+
   return {
     dictionary,
     load,
     save,
     addDictionaryItem,
+    removeDictionaryItem,
   }
 })
