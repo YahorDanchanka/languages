@@ -21,7 +21,14 @@
         </q-td>
         <q-td auto-width>
           <q-btn-group push>
-            <q-btn color="primary" icon="edit" size="md" dense push />
+            <q-btn
+              :to="{ name: 'dictionaryEdit', params: { id: props.row.id } }"
+              color="primary"
+              icon="edit"
+              size="md"
+              dense
+              push
+            />
             <q-btn
               @click="deleteDictionaryItem(props.row.id)"
               color="primary"

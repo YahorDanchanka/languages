@@ -6,7 +6,7 @@
         <div class="text-h6">Добавить слово</div>
       </q-card-section>
       <q-card-section>
-        <DictionaryAddForm @submit="onSubmit" />
+        <DictionaryForm @submit="onSubmit" />
       </q-card-section>
     </q-card>
   </q-page>
@@ -15,7 +15,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import DictionaryTable from 'components/dictionary/DictionaryTable.vue'
-import DictionaryAddForm from 'components/dictionary/DictionaryAddForm.vue'
+import DictionaryForm from 'components/dictionary/DictionaryForm.vue'
 import { IDictionary, IDictionaryItem } from 'src/types/IDictionary'
 import { useDictionaryStore } from 'stores/dictionary'
 

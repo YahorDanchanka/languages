@@ -43,11 +43,30 @@ export const useDictionaryStore = defineStore('dictionary', () => {
     )
   }
 
+  function updateDictionaryItem(dictionaryItemToUpdate: IDictionaryItem) {
+    dictionary.value = dictionary.value.map((dictionaryItem: IDictionaryItem) =>
+      dictionaryItem.id === dictionaryItemToUpdate.id
+        ? dictionaryItemToUpdate
+        : dictionaryItem
+    )
+  }
+
+  function findDictionaryItemById(
+    dictionaryItemId: string
+  ): IDictionaryItem | undefined {
+    return dictionary.value.find(
+      (dictionaryItem: IDictionaryItem) =>
+        dictionaryItem.id === dictionaryItemId
+    )
+  }
+
   return {
     dictionary,
     load,
     save,
     addDictionaryItem,
     removeDictionaryItem,
+    updateDictionaryItem,
+    findDictionaryItemById,
   }
 })

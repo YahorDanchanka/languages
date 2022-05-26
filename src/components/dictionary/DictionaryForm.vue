@@ -42,6 +42,15 @@
       dense
     />
     <q-btn
+      v-if="dictionaryItem"
+      type="submit"
+      class="full-width"
+      color="primary"
+      icon="done"
+      label="Сохранить"
+    />
+    <q-btn
+      v-else
       type="submit"
       class="full-width"
       color="primary"
@@ -52,18 +61,19 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, defineProps, ref } from 'vue'
 import { uid } from 'quasar'
 import { useLanguagesStore } from 'stores/languages'
 import { IDictionaryItem } from 'src/types/IDictionary'
 
 const languagesStore = useLanguagesStore()
+const props = defineProps<{ dictionaryItem?: IDictionaryItem }>()
 const emit = defineEmits(['submit'])
 
-const word = ref('')
-const translations = ref('')
-const language = ref('')
-const topic = ref('')
+const word = ref(props.dictionaryItem?.word || '')
+const translations = ref(props.dictionaryItem?.translations.join(', ') || '')
+const language = ref(props.dictionaryItem?.language.code || '')
+const topic = ref(props.dictionaryItem?.topic || '')
 const availableLanguages = languagesStore.languages
 
 const wordRules = computed(() => [
@@ -92,7 +102,7 @@ function onSubmit() {
   }
 
   const dictionaryItem: IDictionaryItem = {
-    id: uid(),
+    id: props.dictionaryItem?.id || uid(),
     language: foundLanguage,
     topic: topic.value,
     word: word.value,

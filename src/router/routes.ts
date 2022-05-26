@@ -22,6 +22,11 @@ const routes: RouteRecordRaw[] = [
         name: 'dictionary',
         component: () => import('pages/DictionaryPage.vue'),
       },
+      {
+        path: 'edit/:id',
+        name: 'dictionaryEdit',
+        component: () => import('pages/DictionaryEditPage.vue'),
+      },
     ],
   },
   {
