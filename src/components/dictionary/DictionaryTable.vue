@@ -54,7 +54,11 @@ import { useLanguagesStore } from 'stores/languages'
 const $q = useQuasar()
 const languagesStore = useLanguagesStore()
 const dictionaryStore = useDictionaryStore()
-const props = defineProps<{ dictionary: IDictionary }>()
+const props = defineProps<{
+  dictionary: IDictionary
+  topic?: string
+  language?: string
+}>()
 
 const columns = [
   {
@@ -103,7 +107,25 @@ const columns = [
   },
 ]
 
-const rows = computed(() => JSON.parse(JSON.stringify(props.dictionary)))
+const rows = computed(() => {
+  const typedRows: IDictionary = JSON.parse(JSON.stringify(props.dictionary))
+
+  if (props.topic && props.language) {
+    return typedRows.filter(
+      (row) => row.topic === props.topic && row.languageCode === props.language
+    )
+  } else {
+    if (props.topic) {
+      return typedRows.filter((row) => row.topic === props.topic)
+    }
+
+    if (props.language) {
+      return typedRows.filter((row) => row.languageCode === props.language)
+    }
+  }
+
+  return typedRows
+})
 
 function deleteDictionaryItem(dictionaryItemId: string) {
   $q.dialog({

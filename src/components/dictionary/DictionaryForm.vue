@@ -67,7 +67,10 @@ import { useLanguagesStore } from 'stores/languages'
 import { IDictionaryItem } from 'src/types/IDictionary'
 
 const languagesStore = useLanguagesStore()
-const props = defineProps<{ dictionaryItem?: IDictionaryItem }>()
+const props = defineProps<{
+  dictionaryItem?: IDictionaryItem
+  topic?: string
+}>()
 const emit = defineEmits(['submit'])
 
 const word = ref(props.dictionaryItem?.word || '')
