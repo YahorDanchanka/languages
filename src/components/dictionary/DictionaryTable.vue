@@ -57,19 +57,27 @@ const dictionaryStore = useDictionaryStore()
 const props = defineProps<{ dictionary: IDictionary }>()
 
 const columns = [
-  { name: 'word', field: 'word', label: 'Слово', align: 'left' },
+  {
+    name: 'word',
+    field: 'word',
+    label: 'Слово',
+    align: 'left',
+    sortable: true,
+  },
   {
     name: 'translations',
     field: 'translations',
     label: 'Переводы',
     align: 'left',
     format: (val: string[]) => val.join(', '),
+    sortable: true,
   },
   {
     name: 'topic',
     field: 'topic',
     label: 'Тема',
     align: 'left',
+    sortable: true,
   },
   {
     name: 'language',
@@ -78,6 +86,20 @@ const columns = [
     align: 'left',
     format: (languageCode: string) =>
       languagesStore.findLanguageByCode(languageCode)?.label,
+    sortable: true,
+    sort: (languageCodeA: string, languageCodeB: string) => {
+      const languageALabel =
+        languagesStore.findLanguageByCode(languageCodeA)?.label
+      const languageBLabel =
+        languagesStore.findLanguageByCode(languageCodeB)?.label
+
+      if (languageALabel && languageBLabel) {
+        if (languageALabel < languageBLabel) return -1
+        if (languageALabel > languageBLabel) return 1
+      }
+
+      return 0
+    },
   },
 ]
 
