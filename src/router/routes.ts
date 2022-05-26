@@ -14,6 +14,17 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/dictionary',
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        name: 'dictionary',
+        component: () => import('pages/DictionaryPage.vue'),
+      },
+    ],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
   },
