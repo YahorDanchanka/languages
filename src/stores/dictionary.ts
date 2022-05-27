@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { IDictionary, IDictionaryItem } from 'src/types/IDictionary'
 import { fileExists, readFile, writeData } from 'src/services/FileService'
 import {
+  extractDictionaryByTopic,
   findDictionaryItemById,
   getTopics,
 } from 'src/services/DictionaryService'
@@ -68,5 +69,7 @@ export const useDictionaryStore = defineStore('dictionary', () => {
     updateDictionaryItem,
     findDictionaryItemById: (id: string) =>
       findDictionaryItemById(dictionary.value, id),
+    extractDictionaryByTopic: (topic: string) =>
+      extractDictionaryByTopic(dictionary.value, topic),
   }
 })

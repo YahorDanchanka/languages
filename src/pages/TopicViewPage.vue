@@ -7,7 +7,6 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { IDictionary } from 'src/types/IDictionary'
-import { extractDictionaryByTopic } from 'src/services/DictionaryService'
 import { useDictionaryStore } from 'stores/dictionary'
 
 const route = useRoute()
@@ -19,8 +18,7 @@ watch(
   () => route.params.id,
   async () => {
     await dictionaryStore.load()
-    dictionaryOfTopic.value = extractDictionaryByTopic(
-      dictionaryStore.dictionary,
+    dictionaryOfTopic.value = dictionaryStore.extractDictionaryByTopic(
       <string>route.params.id
     )
   },
