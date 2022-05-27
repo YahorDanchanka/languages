@@ -30,6 +30,17 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/topics',
+    component: MainLayout,
+    children: [
+      {
+        path: ':id',
+        name: 'topicView',
+        component: () => import('pages/TopicViewPage.vue'),
+      },
+    ],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
   },

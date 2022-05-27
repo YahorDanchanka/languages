@@ -2,11 +2,17 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { IDictionary, IDictionaryItem } from 'src/types/IDictionary'
 import { fileExists, readFile, writeData } from 'src/services/FileService'
+import {
+  findDictionaryItemById,
+  getTopics,
+} from 'src/services/DictionaryService'
 
 export const useDictionaryStore = defineStore('dictionary', () => {
   const dictionary = ref<IDictionary>([])
   const loading = ref(false)
+
   const storeName = computed(() => 'dictionary.json')
+  const topics = computed(() => getTopics(dictionary.value))
 
   /** Загружает словарь из файла */
   async function load() {
@@ -51,22 +57,16 @@ export const useDictionaryStore = defineStore('dictionary', () => {
     )
   }
 
-  function findDictionaryItemById(
-    dictionaryItemId: string
-  ): IDictionaryItem | undefined {
-    return dictionary.value.find(
-      (dictionaryItem: IDictionaryItem) =>
-        dictionaryItem.id === dictionaryItemId
-    )
-  }
-
   return {
     dictionary,
+    loading,
+    topics,
     load,
     save,
     addDictionaryItem,
     removeDictionaryItem,
     updateDictionaryItem,
-    findDictionaryItemById,
+    findDictionaryItemById: (id: string) =>
+      findDictionaryItemById(dictionary.value, id),
   }
 })
