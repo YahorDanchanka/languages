@@ -5,6 +5,7 @@
     :columns="columns"
     :rows="rows"
     :pagination="{ rowsPerPage: 15 }"
+    :loading="rows.length === 0"
   >
     <template #header="props">
       <q-tr :props="props">
