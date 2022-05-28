@@ -3,8 +3,10 @@ import { defineStore } from 'pinia'
 import { IDictionary, IDictionaryItem } from 'src/types/IDictionary'
 import { fileExists, readFile, writeData } from 'src/services/FileService'
 import {
+  extractDictionaryByLanguage,
   extractDictionaryByTopic,
   findDictionaryItemById,
+  getLanguages,
   getTopics,
 } from 'src/services/DictionaryService'
 
@@ -13,6 +15,7 @@ export const useDictionaryStore = defineStore('dictionary', () => {
   const loading = ref(false)
 
   const storeName = computed(() => 'dictionary.json')
+  const languages = computed(() => getLanguages(dictionary.value))
   const topics = computed(() => getTopics(dictionary.value))
 
   /** Загружает словарь из файла */
@@ -61,6 +64,7 @@ export const useDictionaryStore = defineStore('dictionary', () => {
   return {
     dictionary,
     loading,
+    languages,
     topics,
     load,
     save,
@@ -71,5 +75,7 @@ export const useDictionaryStore = defineStore('dictionary', () => {
       findDictionaryItemById(dictionary.value, id),
     extractDictionaryByTopic: (topic: string) =>
       extractDictionaryByTopic(dictionary.value, topic),
+    extractDictionaryByLanguage: (languageCode: string) =>
+      extractDictionaryByLanguage(dictionary.value, languageCode),
   }
 })

@@ -13,5 +13,16 @@ export const useLanguagesStore = defineStore('languages', () => {
     return languages.value.find((language: ILanguage) => language.code === code)
   }
 
-  return { languages, findLanguageByCode }
+  /**
+   * Принимает список языковых кодов
+   * Символьный код языка возвращается в объектом виде
+   *
+   * Input: ['en', 'fr']
+   * Output: [{ code: 'en', label: 'Английский' }, { code: 'fr', label: 'Французский' }]
+   */
+  function map(list: string[]) {
+    return list.map((languageCode) => findLanguageByCode(languageCode))
+  }
+
+  return { languages, findLanguageByCode, map }
 })

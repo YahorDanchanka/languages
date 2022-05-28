@@ -1,18 +1,131 @@
 <template>
-  Topic view page
-  {{ dictionaryOfTopic }}
+  <q-page padding>
+    <q-stepper
+      v-show="!submitted"
+      v-model="step"
+      color="primary"
+      animated
+      vertical
+    >
+      <q-step :name="1" :title="languageStepTitle" icon="edit">
+        <q-select
+          v-model="language"
+          :options="languagesOptions"
+          label="Язык"
+          option-value="code"
+          emit-value
+          map-options
+          outlined
+          dense
+        />
+      </q-step>
+      <q-step
+        :name="2"
+        title="Выбрать режим"
+        icon="settings"
+        active-icon="settings"
+      >
+        <q-select
+          v-model="mode"
+          :options="modesOptions"
+          class="q-mb-sm"
+          label="Режим"
+          option-value="componentName"
+          outlined
+          dense
+          emit-value
+          map-options
+        />
+        <q-btn-group push spread>
+          <q-btn
+            @click="onSubmit"
+            :disable="isSubmitButtonDisabled"
+            color="primary"
+            push
+          >
+            Подтвердить
+          </q-btn>
+          <q-btn @click="goBack" color="primary" push>Вернуться</q-btn>
+        </q-btn-group>
+      </q-step>
+    </q-stepper>
+    <component
+      v-if="submitted && dictionaryOfLanguage.length > 0"
+      :is="components[mode]"
+      :dictionary="dictionaryOfLanguage"
+    />
+  </q-page>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { IDictionary } from 'src/types/IDictionary'
 import { useDictionaryStore } from 'stores/dictionary'
+import { useLanguagesStore } from 'stores/languages'
+import {
+  getLanguages,
+  extractDictionaryByLanguage,
+} from 'src/services/DictionaryService'
 
 const route = useRoute()
+const languagesStore = useLanguagesStore()
 const dictionaryStore = useDictionaryStore()
 
+const components = {}
+
 const dictionaryOfTopic = ref<IDictionary>([])
+const step = ref(1)
+const language = ref('')
+const mode = ref('')
+const submitted = ref(false)
+
+const languageStepTitle = computed(() => {
+  let title = 'Выбрать язык'
+
+  if (language.value) {
+    title += ` (${language.value})`
+  }
+
+  return title
+})
+
+/** Возвращает список доступных языков для теста */
+const languagesOptions = computed(() =>
+  languagesStore.map(getLanguages(dictionaryOfTopic.value))
+)
+
+/** Возвращает список доступных режимов для запуска теста */
+const modesOptions = []
+
+const dictionaryOfLanguage = computed<IDictionary>(() =>
+  extractDictionaryByLanguage(dictionaryOfTopic.value, language.value)
+)
+
+/** Возвращает состояние кнопки: включена или выключена */
+const isSubmitButtonDisabled = computed<boolean>(() => {
+  return !(
+    dictionaryOfLanguage.value.length > 0 &&
+    Boolean(language.value) &&
+    Boolean(mode.value)
+  )
+})
+
+/** Возвращает на первый шаг */
+function goBack() {
+  language.value = ''
+  step.value = 1
+}
+
+function onSubmit() {
+  step.value = 3
+  submitted.value = true
+}
+
+/** Переходит на второй шаг, если выбран язык */
+watch(language, (val) => {
+  if (val) step.value = 2
+})
 
 watch(
   () => route.params.id,
