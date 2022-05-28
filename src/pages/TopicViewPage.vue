@@ -71,6 +71,7 @@ import {
 import { removeReactivity } from 'src/helpers'
 import TrueFalseMode from 'components/modes/TrueFalseMode.vue'
 import InputMode from 'components/modes/InputMode.vue'
+import OptionsMode from 'components/modes/OptionsMode.vue'
 
 const route = useRoute()
 const languagesStore = useLanguagesStore()
@@ -79,6 +80,7 @@ const dictionaryStore = useDictionaryStore()
 const components = {
   TrueFalseMode,
   InputMode,
+  OptionsMode,
 }
 
 const dictionaryOfTopic = ref<IDictionary>([])
@@ -106,6 +108,7 @@ const languagesOptions = computed(() =>
 const modesOptions = [
   { label: 'Да и нет', componentName: 'TrueFalseMode' },
   { label: 'Письмо', componentName: 'InputMode' },
+  { label: 'С вариантами ответа', componentName: 'OptionsMode' },
 ]
 
 const dictionaryOfLanguage = computed<IDictionary>(() =>
