@@ -4,7 +4,7 @@
       v-show="!submitted"
       v-model="step"
       color="primary"
-      animated
+      :animated="!submitted"
       vertical
     >
       <q-step :name="1" :title="languageStepTitle" icon="edit">
