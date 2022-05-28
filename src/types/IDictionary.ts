@@ -4,6 +4,7 @@ export interface ILanguage {
 }
 
 export type IDictionary = IDictionaryItem[]
+export type IAnswerDictionary = IAnswerDictionaryItem[]
 
 export interface IDictionaryItem {
   id: string
@@ -11,4 +12,10 @@ export interface IDictionaryItem {
   topic: string
   word: string
   translations: string[]
+}
+
+export interface IAnswerDictionaryItem extends IDictionaryItem {
+  translation?: string
+  answer?: boolean
+  isError?: boolean
 }

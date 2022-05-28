@@ -50,9 +50,10 @@
       </q-step>
     </q-stepper>
     <component
+      @finish="onFinish"
       v-if="submitted && dictionaryOfLanguage.length > 0"
       :is="components[mode]"
-      :dictionary="dictionaryOfLanguage"
+      :tasks="dictionaryOfLanguage"
     />
   </q-page>
 </template>
@@ -64,15 +65,19 @@ import { IDictionary } from 'src/types/IDictionary'
 import { useDictionaryStore } from 'stores/dictionary'
 import { useLanguagesStore } from 'stores/languages'
 import {
-  getLanguages,
   extractDictionaryByLanguage,
+  getLanguages,
 } from 'src/services/DictionaryService'
+import TrueFalseMode from 'components/modes/TrueFalseMode.vue'
+import { removeReactivity } from 'src/helpers'
 
 const route = useRoute()
 const languagesStore = useLanguagesStore()
 const dictionaryStore = useDictionaryStore()
 
-const components = {}
+const components = {
+  TrueFalseMode,
+}
 
 const dictionaryOfTopic = ref<IDictionary>([])
 const step = ref(1)
@@ -96,7 +101,7 @@ const languagesOptions = computed(() =>
 )
 
 /** Возвращает список доступных режимов для запуска теста */
-const modesOptions = []
+const modesOptions = [{ label: 'Да и нет', componentName: 'TrueFalseMode' }]
 
 const dictionaryOfLanguage = computed<IDictionary>(() =>
   extractDictionaryByLanguage(dictionaryOfTopic.value, language.value)
@@ -122,6 +127,14 @@ function onSubmit() {
   submitted.value = true
 }
 
+function onFinish() {
+  goBack()
+  submitted.value = false
+  dictionaryOfTopic.value = removeReactivity(
+    dictionaryStore.extractDictionaryByTopic(<string>route.params.id)
+  )
+}
+
 /** Переходит на второй шаг, если выбран язык */
 watch(language, (val) => {
   if (val) step.value = 2
@@ -131,8 +144,8 @@ watch(
   () => route.params.id,
   async () => {
     await dictionaryStore.load()
-    dictionaryOfTopic.value = dictionaryStore.extractDictionaryByTopic(
-      <string>route.params.id
+    dictionaryOfTopic.value = removeReactivity(
+      dictionaryStore.extractDictionaryByTopic(<string>route.params.id)
     )
   },
   { immediate: true }
