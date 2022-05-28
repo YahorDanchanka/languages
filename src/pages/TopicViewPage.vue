@@ -68,8 +68,9 @@ import {
   extractDictionaryByLanguage,
   getLanguages,
 } from 'src/services/DictionaryService'
-import TrueFalseMode from 'components/modes/TrueFalseMode.vue'
 import { removeReactivity } from 'src/helpers'
+import TrueFalseMode from 'components/modes/TrueFalseMode.vue'
+import InputMode from 'components/modes/InputMode.vue'
 
 const route = useRoute()
 const languagesStore = useLanguagesStore()
@@ -77,6 +78,7 @@ const dictionaryStore = useDictionaryStore()
 
 const components = {
   TrueFalseMode,
+  InputMode,
 }
 
 const dictionaryOfTopic = ref<IDictionary>([])
@@ -101,7 +103,10 @@ const languagesOptions = computed(() =>
 )
 
 /** Возвращает список доступных режимов для запуска теста */
-const modesOptions = [{ label: 'Да и нет', componentName: 'TrueFalseMode' }]
+const modesOptions = [
+  { label: 'Да и нет', componentName: 'TrueFalseMode' },
+  { label: 'Письмо', componentName: 'InputMode' },
+]
 
 const dictionaryOfLanguage = computed<IDictionary>(() =>
   extractDictionaryByLanguage(dictionaryOfTopic.value, language.value)
