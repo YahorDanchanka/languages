@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <DictionaryTable class="q-mb-sm" :dictionary="dictionary" filters />
+    <DictionaryTable class="q-mb-sm" :dictionary="dictionary" filters editing />
     <q-card>
       <q-card-section class="q-pb-none">
         <div class="text-h6">Добавить слово</div>

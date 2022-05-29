@@ -41,7 +41,7 @@
           <q-th v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.label }}
           </q-th>
-          <q-th auto-width />
+          <q-th v-if="editing" auto-width />
         </q-tr>
       </template>
       <template #body="props">
@@ -52,7 +52,7 @@
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.value }}
           </q-td>
-          <q-td auto-width>
+          <q-td v-if="editing" auto-width>
             <q-btn-group push>
               <q-btn
                 :to="{ name: 'dictionaryEdit', params: { id: props.row.id } }"
@@ -94,6 +94,7 @@ const props = defineProps<{
   dictionary: IDictionary
   selected?: IDictionary
   filters?: boolean
+  editing?: boolean
 }>()
 
 const topicFilter = ref('')

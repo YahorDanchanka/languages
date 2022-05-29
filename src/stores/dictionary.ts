@@ -8,6 +8,7 @@ import {
   findDictionaryItemById,
   getLanguages,
   getTopics,
+  importDictionary,
 } from 'src/services/DictionaryService'
 
 export const useDictionaryStore = defineStore('dictionary', () => {
@@ -71,6 +72,9 @@ export const useDictionaryStore = defineStore('dictionary', () => {
     addDictionaryItem,
     removeDictionaryItem,
     updateDictionaryItem,
+    importDictionary: (dictionaryToImport: IDictionary) => {
+      dictionary.value = importDictionary(dictionary.value, dictionaryToImport)
+    },
     findDictionaryItemById: (id: string) =>
       findDictionaryItemById(dictionary.value, id),
     extractDictionaryByTopic: (topic: string) =>

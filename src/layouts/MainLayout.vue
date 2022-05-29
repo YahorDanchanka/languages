@@ -55,6 +55,11 @@ const drawerItems = ref<IDrawerItem[]>([
     to: { name: 'dictionary' },
   },
   {
+    label: 'Импорт',
+    icon: 'file_upload',
+    to: { name: 'import' },
+  },
+  {
     label: 'Экспорт',
     icon: 'file_download',
     to: { name: 'export' },

@@ -52,6 +52,17 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/import',
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        name: 'import',
+        component: () => import('pages/ImportPage.vue'),
+      },
+    ],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
   },
