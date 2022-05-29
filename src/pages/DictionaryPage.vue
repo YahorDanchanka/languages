@@ -1,32 +1,6 @@
 <template>
   <q-page padding>
-    <q-select
-      class="q-mb-sm"
-      label="Тема"
-      v-model="topicFilter"
-      :options="topics"
-      clearable
-      outlined
-      dense
-    />
-    <q-select
-      class="q-mb-sm"
-      label="Язык"
-      option-value="code"
-      v-model="languageFilter"
-      :options="availableLanguages"
-      clearable
-      emit-value
-      map-options
-      outlined
-      dense
-    />
-    <DictionaryTable
-      class="q-mb-sm"
-      :dictionary="dictionary"
-      :topic="topicFilter"
-      :language="languageFilter"
-    />
+    <DictionaryTable class="q-mb-sm" :dictionary="dictionary" filters />
     <q-card>
       <q-card-section class="q-pb-none">
         <div class="text-h6">Добавить слово</div>
@@ -39,21 +13,15 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
-import DictionaryTable from 'components/dictionary/DictionaryTable.vue'
-import DictionaryForm from 'components/dictionary/DictionaryForm.vue'
+import { computed } from 'vue'
+import { uniq } from 'lodash'
 import { IDictionary, IDictionaryItem } from 'src/types/IDictionary'
 import { useDictionaryStore } from 'stores/dictionary'
-import { useLanguagesStore } from 'stores/languages'
-import { uniq } from 'lodash'
+import DictionaryTable from 'components/dictionary/DictionaryTable.vue'
+import DictionaryForm from 'components/dictionary/DictionaryForm.vue'
 
-const languagesStore = useLanguagesStore()
 const dictionaryStore = useDictionaryStore()
 dictionaryStore.load()
-
-const topicFilter = ref('')
-const languageFilter = ref('')
-const availableLanguages = languagesStore.languages
 
 const dictionary = computed<IDictionary>(() => dictionaryStore.dictionary)
 const topics = computed(() =>

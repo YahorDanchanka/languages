@@ -4,6 +4,7 @@
       class="q-mb-sm"
       v-model:selected="selectedTests"
       :dictionary="dictionary"
+      filters
     />
     <q-form @submit="onSubmit">
       <q-input
@@ -26,6 +27,7 @@
         class="q-mb-md full-width"
         color="primary"
         label="Экспортировать"
+        :disable="selectedTests.length === 0"
       />
     </q-form>
   </q-page>
