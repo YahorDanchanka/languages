@@ -54,6 +54,11 @@ const drawerItems = ref<IDrawerItem[]>([
     icon: 'translate',
     to: { name: 'dictionary' },
   },
+  {
+    label: 'Экспорт',
+    icon: 'file_download',
+    to: { name: 'export' },
+  },
 ])
 
 const leftDrawerOpen = ref(false)

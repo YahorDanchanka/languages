@@ -6,9 +6,15 @@
     :rows="rows"
     :pagination="{ rowsPerPage: 15 }"
     :loading="rows.length === 0"
+    :selection="selected ? 'multiple' : 'none'"
+    :selected="selected"
+    @update:selected="(newValue) => emit('update:selected', newValue)"
   >
     <template #header="props">
       <q-tr :props="props">
+        <q-th v-if="selected">
+          <q-checkbox v-model="props.selected" />
+        </q-th>
         <q-th v-for="col in props.cols" :key="col.name" :props="props">
           {{ col.label }}
         </q-th>
@@ -17,6 +23,9 @@
     </template>
     <template #body="props">
       <q-tr :props="props">
+        <q-td v-if="selected">
+          <q-checkbox v-model="props.selected" />
+        </q-td>
         <q-td v-for="col in props.cols" :key="col.name" :props="props">
           {{ col.value }}
         </q-td>
@@ -59,7 +68,9 @@ const props = defineProps<{
   dictionary: IDictionary
   topic?: string
   language?: string
+  selected?: IDictionary
 }>()
+const emit = defineEmits(['update:selected'])
 
 const columns = [
   {

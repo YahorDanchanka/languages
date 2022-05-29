@@ -41,6 +41,17 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/export',
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        name: 'export',
+        component: () => import('pages/ExportPage.vue'),
+      },
+    ],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
   },
