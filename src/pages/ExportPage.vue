@@ -44,12 +44,12 @@ dictionaryStore.load()
 const selectedTests = ref<IDictionary>([])
 const filename = ref('')
 
+const dictionary = computed<IDictionary>(() => dictionaryStore.dictionary)
+
 async function onSubmit() {
   try {
     await writeData(`${filename.value}.json`, selectedTests.value)
     alert('Файл успешно сохранен в папке «Документы».')
   } catch (error) {}
 }
-
-const dictionary = computed<IDictionary>(() => dictionaryStore.dictionary)
 </script>
