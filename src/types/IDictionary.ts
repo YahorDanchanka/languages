@@ -8,6 +8,7 @@ export type IAnswerDictionary = IAnswerDictionaryItem[]
 export type IInputDictionary = IInputDictionaryItem[]
 export type IOptionDictionary = IOptionDictionaryItem[]
 export type IMultipleDictionary = IMultipleDictionaryItem[]
+export type IMatchDictionary = IMatchDictionaryItem[]
 
 export interface IDictionaryItem {
   id: string
@@ -37,4 +38,8 @@ export interface IMultipleDictionaryItem extends IDictionaryItem {
   options: string[]
   answers?: string[]
   isError?: boolean
+}
+
+export interface IMatchDictionaryItem extends IInputDictionaryItem {
+  rightAnswer?: string
 }

@@ -73,6 +73,7 @@ import TrueFalseMode from 'components/modes/TrueFalseMode.vue'
 import InputMode from 'components/modes/InputMode.vue'
 import OptionsMode from 'components/modes/OptionsMode.vue'
 import MultipleMode from 'components/modes/MultipleMode.vue'
+import MatchMode from 'components/modes/MatchMode.vue'
 
 const route = useRoute()
 const languagesStore = useLanguagesStore()
@@ -83,6 +84,7 @@ const components = {
   InputMode,
   OptionsMode,
   MultipleMode,
+  MatchMode,
 }
 
 const dictionaryOfTopic = ref<IDictionary>([])
@@ -115,6 +117,7 @@ const modesOptions = [
     label: 'С множественными вариантами ответа',
     componentName: 'MultipleMode',
   },
+  { label: 'Соответствие', componentName: 'MatchMode' },
 ]
 
 const dictionaryOfLanguage = computed<IDictionary>(() =>
