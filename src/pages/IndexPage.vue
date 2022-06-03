@@ -7,6 +7,15 @@
       outlined
       dense
     />
+    <q-banner
+      v-show="!loading && topics.length === 0"
+      class="bg-primary text-white q-mb-sm"
+    >
+      <template v-slot:avatar>
+        <q-icon name="priority_high" />
+      </template>
+      Темы не найдены
+    </q-banner>
     <TopicCard
       class="q-mb-sm"
       v-for="topic in topics"
@@ -17,16 +26,16 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { filter } from 'lodash'
 import { useDictionaryStore } from 'stores/dictionary'
 import TopicCard from 'components/dictionary/TopicCard.vue'
 
 const dictionaryStore = useDictionaryStore()
-dictionaryStore.load()
 
 const searchQuery = ref('')
 
+const loading = computed(() => dictionaryStore.loading)
 const topics = computed<string[]>(() =>
   filter(
     dictionaryStore.topics,
@@ -37,4 +46,8 @@ const topics = computed<string[]>(() =>
         .indexOf(searchQuery.value.toLowerCase().trim()) !== -1
   )
 )
+
+onMounted(async () => {
+  await dictionaryStore.load()
+})
 </script>
