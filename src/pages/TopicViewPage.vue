@@ -74,6 +74,7 @@ import InputMode from 'components/modes/InputMode.vue'
 import OptionsMode from 'components/modes/OptionsMode.vue'
 import MultipleMode from 'components/modes/MultipleMode.vue'
 import MatchMode from 'components/modes/MatchMode.vue'
+import ShuffleMode from 'components/modes/ShuffleMode.vue'
 
 const route = useRoute()
 const languagesStore = useLanguagesStore()
@@ -85,6 +86,7 @@ const components = {
   OptionsMode,
   MultipleMode,
   MatchMode,
+  ShuffleMode,
 }
 
 const dictionaryOfTopic = ref<IDictionary>([])
@@ -118,6 +120,7 @@ const modesOptions = [
     componentName: 'MultipleMode',
   },
   { label: 'Соответствие', componentName: 'MatchMode' },
+  { label: 'Тасование', componentName: 'ShuffleMode' },
 ]
 
 const dictionaryOfLanguage = computed<IDictionary>(() =>

@@ -9,6 +9,7 @@ export type IInputDictionary = IInputDictionaryItem[]
 export type IOptionDictionary = IOptionDictionaryItem[]
 export type IMultipleDictionary = IMultipleDictionaryItem[]
 export type IMatchDictionary = IMatchDictionaryItem[]
+export type IShuffleDictionary = IShuffleDictionaryItem[]
 
 export interface IDictionaryItem {
   id: string
@@ -42,4 +43,9 @@ export interface IMultipleDictionaryItem extends IDictionaryItem {
 
 export interface IMatchDictionaryItem extends IInputDictionaryItem {
   rightAnswer?: string
+}
+
+export interface IShuffleDictionaryItem extends IDictionaryItem {
+  letters?: string[]
+  isError?: boolean
 }
