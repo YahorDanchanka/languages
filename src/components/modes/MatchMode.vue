@@ -79,7 +79,11 @@
           {{ correctAnswersCount }} / {{ dictionary.length }}
         </div>
       </q-linear-progress>
-      <q-btn @click="emit('finish')" class="q-mb-md full-width" color="primary">
+      <q-btn
+        @click="emit('finish', correctAnswersCount, tasks.length)"
+        class="q-mb-md full-width"
+        color="primary"
+      >
         Вернуться
       </q-btn>
     </template>

@@ -9,7 +9,7 @@
       }"
     >
       <div class="text-h6">{{ task.word }}</div>
-      <div class="text-subtitle2">{{ task.translation }}</div>
+      <div class="text-subtitle2">{{ upperFirst(task.translation) }}</div>
     </q-card-section>
 
     <q-separator />
@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { random } from 'lodash'
+import { random, upperFirst } from 'lodash'
 import { IAnswerDictionaryItem } from 'src/types/IDictionary'
 
 interface Props {

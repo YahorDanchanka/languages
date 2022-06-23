@@ -64,6 +64,7 @@ import { useRoute } from 'vue-router'
 import { IDictionary } from 'src/types/IDictionary'
 import { useDictionaryStore } from 'stores/dictionary'
 import { useLanguagesStore } from 'stores/languages'
+import { useHistoryStore } from 'stores/history'
 import {
   extractDictionaryByLanguage,
   getLanguages,
@@ -79,6 +80,7 @@ import ShuffleMode from 'components/modes/ShuffleMode.vue'
 const route = useRoute()
 const languagesStore = useLanguagesStore()
 const dictionaryStore = useDictionaryStore()
+const historyStore = useHistoryStore()
 
 const components = {
   TrueFalseMode,
@@ -147,7 +149,18 @@ function onSubmit() {
   submitted.value = true
 }
 
-function onFinish() {
+async function onFinish(correctAnswersNumber: number, total: number) {
+  /** Запись истории */
+  await historyStore.load()
+  historyStore.addHistory({
+    correctAnswersNumber,
+    wrongAnswersNumber: total - correctAnswersNumber,
+    date: new Date(),
+    mode: mode.value,
+    topic: dictionaryOfTopic.value[0].topic,
+  })
+  await historyStore.save()
+
   goBack()
   submitted.value = false
   dictionaryOfTopic.value = removeReactivity(

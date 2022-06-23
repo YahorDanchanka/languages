@@ -63,6 +63,17 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/history',
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        name: 'history',
+        component: () => import('pages/HistoryPage.vue'),
+      },
+    ],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
   },

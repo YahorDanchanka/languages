@@ -11,7 +11,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Изучение иностранных языков </q-toolbar-title>
+        <q-toolbar-title> Словарик </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
@@ -63,6 +63,11 @@ const drawerItems = ref<IDrawerItem[]>([
     label: 'Экспорт',
     icon: 'file_download',
     to: { name: 'export' },
+  },
+  {
+    label: 'История',
+    icon: 'history',
+    to: { name: 'history' },
   },
 ])
 
