@@ -21,7 +21,7 @@
       </q-step>
       <q-step
         :name="2"
-        title="Выбрать режим"
+        title="Выбрать тест"
         icon="settings"
         active-icon="settings"
       >
@@ -29,7 +29,7 @@
           v-model="mode"
           :options="modesOptions"
           class="q-mb-sm"
-          label="Режим"
+          label="Тест"
           option-value="componentName"
           outlined
           dense
