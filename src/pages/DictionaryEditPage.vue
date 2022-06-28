@@ -14,7 +14,9 @@ import { useRoute, useRouter } from 'vue-router'
 import { useDictionaryStore } from 'stores/dictionary'
 import { IDictionaryItem } from 'src/types/IDictionary'
 import DictionaryForm from 'components/dictionary/DictionaryForm.vue'
+import { useQuasar } from 'quasar'
 
+const $q = useQuasar()
 const store = useDictionaryStore()
 const router = useRouter()
 const route = useRoute()
@@ -25,6 +27,7 @@ async function onSubmit(dictionaryItem: IDictionaryItem) {
   store.updateDictionaryItem(dictionaryItem)
   await store.save()
   await router.push({ name: 'dictionary' })
+  $q.notify({ type: 'positive', message: 'Слово изменено.', timeout: 500 })
 }
 
 watch(

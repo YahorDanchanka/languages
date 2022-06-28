@@ -14,12 +14,14 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useQuasar } from 'quasar'
 import { uniq } from 'lodash'
 import { IDictionary, IDictionaryItem } from 'src/types/IDictionary'
 import { useDictionaryStore } from 'stores/dictionary'
 import DictionaryTable from 'components/dictionary/DictionaryTable.vue'
 import DictionaryForm from 'components/dictionary/DictionaryForm.vue'
 
+const $q = useQuasar()
 const dictionaryStore = useDictionaryStore()
 dictionaryStore.load()
 
@@ -37,5 +39,6 @@ const topics = computed(() =>
 function onSubmit(dictionaryItem: IDictionaryItem) {
   dictionaryStore.addDictionaryItem(dictionaryItem)
   dictionaryStore.save()
+  $q.notify({ type: 'positive', message: 'Слово добавлено', timeout: 500 })
 }
 </script>
