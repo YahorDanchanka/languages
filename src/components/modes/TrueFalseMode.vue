@@ -43,6 +43,7 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import { shuffle } from 'lodash'
 import TrueFalseItem from 'src/components/modes/TrueFalseItem.vue'
 import {
   IAnswerDictionary,
@@ -57,7 +58,7 @@ interface Props {
 const emit = defineEmits(['finish'])
 const props = defineProps<Props>()
 
-const tasks = ref<IAnswerDictionary>(props.tasks)
+const tasks = ref<IAnswerDictionary>(shuffle(props.tasks))
 const errors = ref<IDictionary>([])
 const isFinished = ref(false)
 

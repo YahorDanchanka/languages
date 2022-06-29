@@ -43,6 +43,7 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import { shuffle } from 'lodash'
 import InputItem from 'src/components/modes/InputItem.vue'
 import {
   IDictionary,
@@ -57,7 +58,7 @@ interface Props {
 const emit = defineEmits(['finish'])
 const props = defineProps<Props>()
 
-const tasks = ref<IInputDictionary>(props.tasks)
+const tasks = ref<IInputDictionary>(shuffle(props.tasks))
 const errors = ref<IDictionary>([])
 const isFinished = ref(false)
 

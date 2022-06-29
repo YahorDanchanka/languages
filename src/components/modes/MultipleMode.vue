@@ -43,6 +43,7 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import { shuffle } from 'lodash'
 import MultipleItem from 'src/components/modes/MultipleItem.vue'
 import {
   IDictionary,
@@ -57,7 +58,7 @@ interface Props {
 const emit = defineEmits(['finish'])
 const props = defineProps<Props>()
 
-const tasks = ref<IMultipleDictionary>(props.tasks)
+const tasks = ref<IMultipleDictionary>(shuffle(props.tasks))
 const errors = ref<IDictionary>([])
 const isFinished = ref(false)
 

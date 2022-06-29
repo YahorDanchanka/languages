@@ -59,7 +59,7 @@ import ShuffleItem from 'components/modes/ShuffleItem.vue'
 const props = defineProps<{ tasks: IDictionary }>()
 const emit = defineEmits(['finish'])
 
-const dictionary = ref<IShuffleDictionary>(props.tasks)
+const dictionary = ref<IShuffleDictionary>(shuffle(props.tasks))
 const errors = ref<IDictionary>([])
 const isFinished = ref(false)
 
